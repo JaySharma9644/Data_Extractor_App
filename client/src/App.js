@@ -27,7 +27,7 @@ const App = () => {
               var cell_address = { c: C, r: R };
               /* if an A1-style address is needed, encode the address */
               var cell_ref = utils.encode_cell(cell_address);
-              if (sheet[cell_ref] && sheet[cell_ref] != undefined) {
+              if (sheet[cell_ref] && sheet[cell_ref] !== undefined) {
                 object[index.toString()] = sheet[cell_ref].v;
                 if (sheet[cell_ref].l && sheet[cell_ref].l.Target) {
                   sheet[cell_ref].v = sheet[cell_ref].l.Target;
