@@ -3,15 +3,15 @@ const fs = require('fs');
 const got = require('got');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-const path = require('path')
 const bodyparser = require('body-parser')
 const multer = require('multer')
 const xl = require('xlsx');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 const excelJs = require('exceljs');
+const path = require('path');
 const cors = require('cors');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 const corsOptions = {
@@ -28,15 +28,8 @@ app.use(
     extended: true,
   }),
 );
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, __dirname + '/uploads/')
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname)
-  },
-})
-const uploadFile = multer({ storage: storage })
+
+app.use(express.static(path.join(__dirname,'client/build')))
 
 app.post('/api/process', async (req, res) => {
   let list_data = req.body;
@@ -67,7 +60,7 @@ app.post('/api/process', async (req, res) => {
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
-
+``
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
